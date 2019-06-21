@@ -3,38 +3,40 @@ import { Kick } from 'src/engines/kick'
 import { Transport } from 'tone'
 
 export class Instrument extends React.Component<any, any> {
-    private kick: Kick
     private ctx: AudioContext
+    private sound: Kick
+    private loopId: number;
     
-    constructor(props: any) {
+    constructor(props) {
         super(props)
         this.ctx = new AudioContext
-        this.kick = new Kick(this.ctx)
-        console.log(Transport)
-
-        Transport.bpm.value = 120
-        Transport.schedule(this.startLoop, "0")
-
+        this.sound = new Kick(this.ctx)
         Transport.loop = true
         Transport.loopEnd = '1m'
     }
-    public startLoop = ( time: number ) => {
-            // this values represent 120BPM, fix later!
+    
+    createLoop = () => {
+        Transport.clear(this.loopId)
+        const loop = (time: number) => {
             console.log('start loop ', time)
-            this.kick.trigger(time)
-            this.kick.trigger(time + 0.5)
-            this.kick.trigger(time + 1)
-            this.kick.trigger(time + 1.5)
+            this.sound.trigger(time)
+            this.sound.trigger(time + 0.5)
+            this.sound.trigger(time + 1)
+            this.sound.trigger(time + 1.5)
+        }
+        this.loopId = Transport.schedule(loop, '0')
             
     }
 
     public handleClick = () => {
-        Transport.start();
+        this.createLoop()
+        Transport.start()
     }
 
     render() {
         const InstrumentStyle = {
             height: '3em',
+            width: '8em',
             margin: '0.2em',
             borderRadius: 10,
             padding: 5,
@@ -43,9 +45,11 @@ export class Instrument extends React.Component<any, any> {
             boxShadow: '2px 2px 5px #222',
         } 
         return (
-        <div style={InstrumentStyle} onClick={this.handleClick}>
-            instrument
-            </div >)
+            <div>
+                <div style={InstrumentStyle} onClick={this.handleClick}>
+                    instrument
+                </div >
+            </div> )
 
     }
 }

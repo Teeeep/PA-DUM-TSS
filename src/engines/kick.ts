@@ -8,7 +8,7 @@ export class Kick {
 
     constructor(ctx: AudioContext) {
         this.ctx = ctx
-        this.tone = 167.1
+        this.tone = 155;
         this.decay = 0.5;
         this.volume = 1;
     }

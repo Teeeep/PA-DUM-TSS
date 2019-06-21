@@ -46,9 +46,9 @@ export class Instrument extends React.Component<any, any> {
         } 
         return (
             <div>
-                <div style={InstrumentStyle} onClick={this.handleClick}>
-                    instrument
-                </div >
+                <button style={InstrumentStyle} onClick={this.handleClick}>
+                    KICK
+                </button >
             </div> )
 
     }

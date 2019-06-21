@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 export class Instruments extends React.Component<any> {
-    constructor(props) {
+    constructor(props: any) {
         super(props)
     }
 
